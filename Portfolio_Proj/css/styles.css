@@ -2,7 +2,7 @@
     border-radius: 6px;
     margin-top: 25px;
     position: relative;
-    background: #FFF url("/css/portfolio.jpg") center center;
+    background: #FFF url("../css/portfolio.jpg") center center;
     width: 100%;
     height: 100%;
     background-size: cover;
