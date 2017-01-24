@@ -1,0 +1,58 @@
+.jumbotron {
+    border-radius: 6px;
+    margin-top: 150px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    overflow: hidden;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.bodyCls {
+    position: relative;
+    background: #FFF url("../images/concreteSeamless.png") center center;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+
+@font-face {
+    font-family: badheadFont;
+    src: url(../badhead-typeface/badheadtypeface-webfont.woff2);
+    font-weight: bold;
+    font-stretch: expanded;
+}
+
+h1 {
+    font-family: 'Arizonia', serif;
+    text-shadow: 2px 2px #888888;
+}
+
+.divQuote {
+    font-family: 'Aladin', 'Capriola', serif;
+    font-size: 26px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    background-color: #efefef;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    color: #000;
+    box-shadow: -10px 10px 20px rgba(100, 100, 100, .8);
+}
+
+.btn {
+    font-family: 'Arizonia', serif;
+    height: 50px;
+    width: 150px;
+    margin: 20px auto;
+    color: rgba(0, 0, 0, 1);
+    background-color: rgba(217, 205, 205, .8);
+    text-align: center;
+    text-shadow: 2px 2px #888888;
+    font-size: 24px;
+    border-radius: 15px;
+    box-shadow: -5px 5px 10px rgba(100, 100, 100, .8);
+}
