@@ -5,13 +5,23 @@
     width: 100%;
     height: 100%;
     background-size: cover;
+    background: #FFF;
+    /*url("../images/bckgSnow.jpg") center center;*/
     overflow: hidden;
     box-shadow: 10px 10px 5px #888888;
 }
 
+.backgroundImgSnow {
+    background: #FFF url("../images/bckgSnow.jpg") center center;
+}
+
+.backgroundImgCloud {
+    background: #FFF url("../images/bckgClouds.jpg") center center;
+}
+
 .bodyCls {
     position: relative;
-    background: #FFF url("../images/concreteSeamless.png") center center;
+    background: #FFF url("../images/weather.png") center center;
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -29,7 +39,7 @@ h1 {
     text-shadow: 2px 2px #888888;
 }
 
-.divQuote {
+.localWeather {
     font-family: 'Aladin', 'Capriola', serif;
     font-size: 26px;
     width: 100%;
@@ -37,7 +47,7 @@ h1 {
     margin: 0 auto;
     background-color: #efefef;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     color: #000;
     box-shadow: -10px 10px 20px rgba(100, 100, 100, .8);
