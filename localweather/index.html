@@ -49,21 +49,72 @@
                     </div>
 
                 </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6  text-center">
+                        <a class="btn" id="btnBackground" title="Change background" target="_blank">
+                        New Background
+                    </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6  text-center">
+                        <a class="btn" id="btnCurrWeather" title="Get current weahter" target="_blank">
+                        Current Weather
+                    </a>
+                    </div>
+
+                </div>
             </div>
 
+
         </div>
+
+    </div>
 
     </div>
 
     <script>
         var tempcf;
         var windSp;
+        var back = 0;
 
         $(document).ready(function() {
             $.ajaxSetup({
                 cache: true
             });
             getCity();
+
+            $("#btnCurrWeather").on("click", function() {
+                getCity();
+            })
+
+            $("#btnBackground").on("click", function() {
+                /*
+                    clouds = 1
+                    clear = 2
+                    rain = 3
+                    snow = 4
+
+                */
+
+                switch (back) {
+                    case 1:
+                        getWeatherGif("clear");
+                        break;
+
+                    case 2:
+                        getWeatherGif("rain");
+                        break;
+
+                    case 3:
+                        getWeatherGif("snow")
+                        break;
+
+                    case 4:
+                        getWeatherGif("clouds");
+                        break;
+
+                }
+            });
 
             $("#temp").on("click", function() {
 
@@ -87,13 +138,13 @@
 
                 if (windSp.indexOf("m/s") > -1) {
                     var crrWindSp = windSp.substring(0, windSp.indexOf("m/s"));
-                    var speed = Math.round((2.23694 * crrWindSp)) + "mp/h";
+                    var speed = Math.round((2.23694 * crrWindSp)) + "mph";
                     windSp = speed;
 
 
                 } else {
 
-                    var crrWindSp = windSp.substring(0, windSp.indexOf("mp/h"));
+                    var crrWindSp = windSp.substring(0, windSp.indexOf("mph"));
                     var speed = Math.round((0.44704 * crrWindSp)) + "m/s";
                     windSp = speed;
                 }
@@ -125,7 +176,7 @@
                 var appId = "&APPID=ae98f322f8deaae47eebb33eda81145c";
 
                 weatherApiUrl += city + "," + country + tmpUnits + appId;
-                // weatherApiUrl += "Sacramento" + "," + "US" + tmpUnits + appId;
+                // weatherApiUrl += "Moscow" + "," + "RU" + tmpUnits + appId;
 
                 //console.log(weatherApiUrl);
 
@@ -142,7 +193,8 @@
                         tempcf = tempC + "&deg;C";
                         windSp = windSpeed + "m/s";
 
-                        $("#city").append("<img src='/images/" + iconId + ".png' alt='current weather'>");
+                        // $("#city").append("<img src='/images/" + iconId + ".png' alt='current weather'>");
+                        $("#city").append("<img src='http://res.cloudinary.com/dvrbedgge/image/upload/v1485484695/localweather/" + iconId + ".png' alt='current weather'>");
                         $("#weatherDesc").html("<span>Current weather condition: " + currentW + ", " + cloudsCover + "% cloud cover, " + humidity + "% humidity</span>");
                         $("#windSpeed").html("<span onmouseover='' style='cursor: pointer;'>Wind speed " + windSpeed + "m/s </span>");
                         $("#temp").html("<span onmouseover='' style='cursor: pointer;'>Temperature " + tempC + "&deg;C</span>");
@@ -166,38 +218,40 @@
 
             switch (currentWeather.toLowerCase()) {
                 case "clouds":
-                    $("#imgType").html("<img src='/images/cloud.gif' alt='clouds'>");
-                    $("#backgroundImg").css("background-image", "url('/images/bckgClouds.jpg')");
+                    // $("#imgType").html("<img src='/images/cloud.gif' alt='clouds'>");
+                    $("#imgType").html("<img src='http://res.cloudinary.com/dvrbedgge/image/upload/v1485484694/localweather/cloud.gif' alt='clouds'>");
+
+                    // $("#backgroundImg").css("background-image", "url('/images/bckgClouds.jpg')");
+                    $("#backgroundImg").css("background-image", "url('http://res.cloudinary.com/dvrbedgge/image/upload/v1485484694/localweather/bckgClouds.jpg')");
+                    back = 1;
                     break;
                 case "clear":
-                    $("#imgType").html("<img src='/images/sun.gif' alt='sun'>");
-                    $("#backgroundImg").css("background-image", "url('/images/bckgSun.jpg')");
+                    // $("#imgType").html("<img src='/images/sun.gif' alt='sun'>");
+                    $("#imgType").html("<img src='http://res.cloudinary.com/dvrbedgge/image/upload/v1485484693/localweather/sun.gif' alt='sun'>");
+
+                    // $("#backgroundImg").css("background-image", "url('/images/bckgSun.jpg')");
+                    $("#backgroundImg").css("background-image", "url('http://res.cloudinary.com/dvrbedgge/image/upload/v1485484694/localweather/bckgSun.jpg')");
+                    back = 2;
                     break;
                 case "rain":
-                    $("#imgType").html("<img src='/images/rain.gif' alt='rain'>");
-                    $("#backgroundImg").css("background-image", "url('/images/bckgRain.jpg')");
+                    // $("#imgType").html("<img src='/images/rain.gif' alt='rain'>");
+                    $("#imgType").html("<img src='http://res.cloudinary.com/dvrbedgge/image/upload/v1485484693/localweather/rain.gif' alt='rain'>");
+
+                    // $("#backgroundImg").css("background-image", "url('/images/bckgRain.jpg')");
+                    $("#backgroundImg").css("background-image", "url('http://res.cloudinary.com/dvrbedgge/image/upload/v1485484694/localweather/bckgRain.jpg')");
+                    back = 3;
+                    break;
+                case "snow":
+                    // $("#imgType").html("<img src='/images/snowy.gif' alt='snow'>");
+                    $("#imgType").html("<img src='http://res.cloudinary.com/dvrbedgge/image/upload/v1485484694/localweather/snowy.gif' alt='snow'>");
+
+                    // $("#backgroundImg").css("background-image", "url('/images/bckgSnow.jpg')");
+                    $("#backgroundImg").css("background-image", "url('http://res.cloudinary.com/dvrbedgge/image/upload/v1485484693/localweather/bckgSnow.jpg')");
+
+                    back = 4;
                     break;
             }
         } //end of getWeatherGif function
-
-        function changeTemp() {
-
-            // console.log(temp.indexOf("C"));
-
-
-            // var crrTemp = temp;
-
-            // var tempType = crrTemp.indexOf("C");
-
-            // if (tempType > -1) {
-            //     var getTemp = temp.substring(0, temp.indexOf("&"));
-            //     var temperature = (getTemp * 9) / 5 + 32 + "&deg;F";
-            // } else {
-
-            // }
-
-            // $("#temp").html("<span onmouseover='' style='cursor: pointer;'>Temperatur " + tempC + "</span>");
-        }
 
 
         //function to get city, region and country by ip address
