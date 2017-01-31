@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Wikipedia Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link href='//fonts.googleapis.com/css?family=Open Sans|Prata|Arizonia|Aladin|Capriola' rel='stylesheet'>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://use.fontawesome.com/f5093a3b52.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body class="bodyCls">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 col-md-6 col-lg-6 col-xs-offset-3 col-md-offset-3 col-lg-offset-3 text-center">
+                <h1>Wikipedia Viewer</h1>
+                <hr class="style12">
+            </div>
+        </div>
+        <div class="wviewer">
+            <div class="row">
+                <div id="rndSearch" class="col-xs-12 col-md-12 col-lg-12 text-center">
+                    <a class="btn" id="btnRndSearch" title="Random Wikipedia Article Search" href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">
+                        Random Article
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  text-center">
+                    <input id="searchInput" data-toggle="tooltip" title="Articles Search Criteria" class="inptText" type="text" placeholder="Search Text">
+                    <input id="numOfArticles" data-toggle="tooltip" title="Number of Articles to Return" class="inptNum" type="number" min="1" max="20" value="10">
+                </div>
+
+            </div>
+            <div class="row">
+                <div id="search" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+
+                    <a class="btn" id="btnSearch" title="Search Wikipedia Articles" target="_blank">
+                        <span class="fa fa-search"></span>Search
+                    </a>
+
+                    <hr class="style12">
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="wikiText" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <!--Place holder for Wikipedia found articles-->
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+            $('[data-toggle="tooltip"]').tooltip();
+            //====================================
+            function toggle(value) {
+                return value ? 'addClass' : 'removeClass';
+            }
+
+            $(document).on("input", ".inptText", function() {
+                $(this)[toggle(this.value)]("x");
+            }).on("mousemove", ".x", function(e) {
+                $(this)[toggle(this.offsetWidth - 18 < e.clientX - this.getBoundingClientRect().left)]("onX");
+            }).on("touchstart click", ".onX", function(eve) {
+                eve.preventDefault();
+                $(this).removeClass("x onX").val("").change();
+            }); //end of function to clear typed text in input text
+
+            //=======================================
+
+            $("#btnSearch").on("click", function() {
+                getWikipediaArticles();
+            });
+
+            $(document).keypress(function(e) {
+                if (e.which === 13) {
+                    getWikipediaArticles();
+                }
+            });
+
+        });
+
+        function getWikipediaArticles() {
+            var searchText = $("#searchInput").val().trim();
+            var numberOfArticles = $("#numOfArticles").val().trim();
+
+            if (searchText === "" || searchText === undefined) return;
+
+            var wikiURL = "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=" + numberOfArticles;
+            wikiURL += "&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max";
+            wikiURL += "&gsrsearch=" + searchText + "&callback=?";
+
+            $.getJSON(wikiURL, function(data) {
+
+                    var pagesReturn = data.query.pages;
+
+                    $("#wikiText").html("");
+
+                    $.each(pagesReturn, function(key, value) {
+
+                        var title = value.title;
+                        var pageId = value.pageid;
+
+                        var article = value.extract;
+                        var pageUrl = "https://en.wikipedia.org/?curid=" + pageId;
+
+                        $("#wikiText").append("<div id='wikiArticles' class='box'><ul> <a style='text-decoration:none;' href='" +
+                            pageUrl + "' target='_blank' <li> <h1>" + title + "</h1><p>" + article + "</p></li></a></ul></div>");
+                    });
+
+                })
+                .fail(function(error) {
+                    if (error.status === 404) {
+                        alert("Error 404. Not Found");
+                    } else {
+                        alert("Non-handled unknown error");
+                    }
+                });
+        }
+    </script>
+
+</body>
+
+</html>
