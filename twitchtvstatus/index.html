@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Twitch TV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link href='//fonts.googleapis.com/css?family=Open Sans|Prata|Arizonia|Aladin|Capriola' rel='stylesheet'>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://use.fontawesome.com/f5093a3b52.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body class="bodyCls">
+    <div class="container">
+        <div class="twitch">
+            <div class="row">
+                <div class="col-xs-6 col-md-6 col-lg-6 col-xs-offset-3 col-md-offset-3 col-lg-offset-3 text-center">
+                    <h1>Twitch Streamers</h1>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                    <a class="btn" id="btnAll" title="Get All Channels" target="_blank">
+                        All
+                </a>
+                    <a class="btn" id="btnOnline" title="Get Online Channels" target="_blank">
+                        Online
+                </a>
+                    <a class="btn" id="btnOffline" title="Get Offline Channels" target="_blank">
+                        Offline
+                </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8  col-md-offset-2 col-lg-offset-2 text-center">
+                    <input id="searchInput" data-toggle="tooltip" title="Search Channels" class="inptText" type="text" placeholder="Search Channels">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                    <h1>TEST TEST</h1>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+
+                $('[data-toggle="tooltip"]').tooltip();
+                //====================================
+                function toggle(value) {
+                    return value ? 'addClass' : 'removeClass';
+                }
+
+                $(document).on("input", ".inptText", function() {
+                    $(this)[toggle(this.value)]("x");
+                }).on("mousemove", ".x", function(e) {
+                    $(this)[toggle(this.offsetWidth - 18 < e.clientX - this.getBoundingClientRect().left)]("onX");
+                }).on("touchstart click", ".onX", function(eve) {
+                    eve.preventDefault();
+                    $(this).removeClass("x onX").val("").change();
+                }); //end of function to clear typed text in input text
+
+                //=======================================
+
+                getTwitchTvStatus();
+                // $("#btnSearch").on("click", function() {
+                //     getTwitchTvStatus();
+                // });
+
+                // $(document).keypress(function(e) {
+                //     if (e.which === 13) {
+                //         getTwitchTvStatus();
+                //     }
+                // });
+
+            });
+
+            function getTwitchTvStatus() {
+
+                // Local variables
+                // var streamers = ["freecodecamp", "GeoffStorbeck", "terakilobyte", "habathcx", "notmichaelmcdonald",
+                //     "RobotCaleb", "medrybw", "comster404", "brunofin", "thomasballinger", "joe_at_underflow",
+                //     "noobs2ninjas", "mdwasp", "beohoff", "xenocomagain"];
+
+                var streamers = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp",
+                    "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas",
+                    "GeoffStorbeck", "terakilobyte", "habathcx", "notmichaelmcdonald",
+                    "RobotCaleb", "medrybw", "comster404", "brunofin", "thomasballinger",
+                    "joe_at_underflow", "noobs2ninjas", "mdwasp", "beohoff", "xenocomagain"
+                ];
+
+                var clientID = "?client_id=rrdh8fewtqudblagaztdi7103kajol";
+
+                var twURL = "https://api.twitch.tv/kraken/"
+
+                streamers.forEach(function(stream) {
+
+                    $.getJSON(twURL + "streams/" + stream + clientID, function(data) {
+
+                            // console.log(twURL + "streams/" + stream + clientID);
+                            var streamming = (data.stream === null) ? false : true;
+                            console.log(streamming);
+                            if (streamming) {
+                                console.log(data.stream.channel.status);
+                            } else {
+
+                            }
+
+                        })
+                        .fail(function(error) {
+
+                        });
+                });
+
+
+            }
+        </script>
+
+</body>
+
+</html>
