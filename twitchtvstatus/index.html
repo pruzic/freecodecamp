@@ -3,6 +3,7 @@
 
 <head>
     <title>Twitch TV</title>
+    <link rel="icon" type="image/png" href="/images/fcc.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link href='//fonts.googleapis.com/css?family=Open Sans|Prata|Arizonia|Aladin|Capriola' rel='stylesheet'>
@@ -42,8 +43,8 @@
             </div>
 
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                    <h1>TEST TEST</h1>
+                <div id="tvChannels" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
                 </div>
             </div>
         </div>
@@ -68,57 +69,146 @@
 
                 //=======================================
 
-                getTwitchTvStatus();
-                // $("#btnSearch").on("click", function() {
-                //     getTwitchTvStatus();
-                // });
+                getTwitchTvStatus("all", "");
 
-                // $(document).keypress(function(e) {
-                //     if (e.which === 13) {
-                //         getTwitchTvStatus();
-                //     }
-                // });
+                $("#btnAll").on("click", function() {
+                    getTwitchTvStatus("all", "");
+                });
 
-            });
+                $("#btnOnline").on("click", function() {
+                    getTwitchTvStatus("online", "");
+                });
 
-            function getTwitchTvStatus() {
-
-                // Local variables
-                // var streamers = ["freecodecamp", "GeoffStorbeck", "terakilobyte", "habathcx", "notmichaelmcdonald",
-                //     "RobotCaleb", "medrybw", "comster404", "brunofin", "thomasballinger", "joe_at_underflow",
-                //     "noobs2ninjas", "mdwasp", "beohoff", "xenocomagain"];
-
-                var streamers = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp",
-                    "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas",
-                    "GeoffStorbeck", "terakilobyte", "habathcx", "notmichaelmcdonald",
-                    "RobotCaleb", "medrybw", "comster404", "brunofin", "thomasballinger",
-                    "joe_at_underflow", "noobs2ninjas", "mdwasp", "beohoff", "xenocomagain"
-                ];
-
-                var clientID = "?client_id=rrdh8fewtqudblagaztdi7103kajol";
-
-                var twURL = "https://api.twitch.tv/kraken/"
-
-                streamers.forEach(function(stream) {
-
-                    $.getJSON(twURL + "streams/" + stream + clientID, function(data) {
-
-                            // console.log(twURL + "streams/" + stream + clientID);
-                            var streamming = (data.stream === null) ? false : true;
-                            console.log(streamming);
-                            if (streamming) {
-                                console.log(data.stream.channel.status);
-                            } else {
-
-                            }
-
-                        })
-                        .fail(function(error) {
-
-                        });
+                $("#btnOffline").on("click", function() {
+                    getTwitchTvStatus("offline", "");
                 });
 
 
+                $("#searchInput").keyup(function(e) {
+
+                    clearTimeout($.data(this, 'timer'));
+
+                    if (e.keyCode === 13) {
+                        search(true);
+                    } else {
+                        $(this).data('timer', setTimeout(search, 500));
+                    }
+
+                });
+
+
+            }); //end of document ready
+
+
+            function search(srch) {
+                var searchText = $("#searchInput").val().trim();
+                if (searchText.length === 0) {
+                    getTwitchTvStatus("all", "");
+                }
+
+                if (!srch) {
+
+                    getTwitchTvStatus("", searchText);
+                }
+
+            }
+
+            function getTwitchTvStatus(channelsToShow, searchChannels) {
+
+                var streamers = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp",
+                    "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas",
+                    "GeoffStorbeck", "terakilobyte", "medrybw", "thomasballinger", "beohoff", "Test_channel"
+                ];
+
+                var clientID = "?client_id=rrdh8fewtqudblagaztdi7103kajol";
+                var twURL = "https://api.twitch.tv/kraken/";
+
+                $("#tvChannels").html("");
+
+                streamers.forEach(function(stream) {
+
+                    $.getJSON(twURL + "streams/" + stream + clientID, function(data1) {
+
+                            var tvChannel;
+                            var status;
+                            var channelTitle = "";
+                            var channelUrl = "";
+
+                            if (data1.stream === null) {
+
+                                tvChannel = "Offline";
+                                status = "Offline";
+
+                            } else if (data1.stream === undefined) {
+                                tvChannel = "Channel Closed";
+                                status = "Offline";
+                            } else {
+                                tvChannel = "Online";
+                                status = "Online";
+                                channelTitle = data1.stream.channel.status;
+                                channelUrl = data1.stream.channel.url;
+                            }
+
+                            var userName = stream;
+                            if (channelUrl.length === 0) {
+                                channelUrl = "https://www.twitch.tv/" + userName;
+                            }
+
+                            if (channelTitle.length === 0) {
+                                channelTitle = status;
+                            }
+
+                            $.getJSON(twURL + "users/" + userName + clientID, function(data2) {
+                                    var name = data2.display_name !== null ? data2.display_name : userName;
+                                    var logo = data2.logo !== null ? data2.logo : "/images/dummyImage.jpg";
+
+
+                                    formChannelsHtml(channelsToShow, searchChannels, logo, name, channelTitle, channelUrl, status);
+                                })
+                                .fail(function(error) {
+                                    alert("Error getting user's logo");
+                                });
+
+                        })
+                        .fail(function(error) {
+                            alert("Error getting channels.");
+                        });
+                });
+            }
+
+            function formChannelsHtml(channelsToShow, searchChannels, logo, name, channelTitle, channelUrl, status) {
+
+                if (channelTitle.length > 50) {
+                    channelTitle = channelTitle.substring(0, 50) + "...";
+                }
+
+                if (searchChannels.length === 0) {
+
+                    if (channelsToShow.toLowerCase() === "all") {
+
+                        $("#tvChannels").append("<div id='channels' class='box box-" + status.toLowerCase() + "'>" +
+                            "<a style='text-decoration:none;' href='" +
+                            channelUrl + "' target='_blank'><img src='" +
+                            logo + "' class='img-circle img-responsive' alt='" + name + "'><h4 class='text-center'>" + name +
+                            "</h4><p class='text-center'>" + channelTitle + "</p></a></div>");
+                    } else if (channelsToShow.toLowerCase() === status.toLowerCase()) {
+                        $("#tvChannels").append("<div id='channels' class='box box-" + status.toLowerCase() + "'>" +
+                            "<a style='text-decoration:none;' href='" +
+                            channelUrl + "' target='_blank'><img src='" +
+                            logo + "' class='img-circle img-responsive' alt='" + name + "'><h4 class='text-center'>" + name +
+                            "</h4><p class='text-center'>" + channelTitle + "</p></a></div>");
+                    }
+                } else {
+
+                    if (channelTitle.toLowerCase().indexOf(searchChannels.toLowerCase()) >= 0 || name.toLowerCase().indexOf(searchChannels.toLowerCase()) >= 0) {
+
+                        $("#tvChannels").append("<div id='channels' class='box box-" + status.toLowerCase() + "'>" +
+                            "<a style='text-decoration:none;' href='" +
+                            channelUrl + "' target='_blank'><img src='" +
+                            logo + "' class='img-circle img-responsive' alt='" + name + "'><h4 class='text-center'>" + name +
+                            "</h4><p class='text-center'>" + channelTitle + "</p></a></div>");
+                    }
+                }
             }
         </script>
 

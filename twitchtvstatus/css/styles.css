@@ -47,13 +47,6 @@ img {
     box-shadow: -5px 5px 10px rgba(100, 100, 100, .8);
 }
 
-hr.style12 {
-    height: 6px;
-    background: url(http://res.cloudinary.com/dvrbedgge/image/upload/v1485883124/wikipediaviewer/hr-12.png) repeat-x 0 0;
-    /*background: url(/images/hr-12.png);*/
-    border: 0;
-}
-
 .inptText {
     width: 90%;
     /*min-width: 20%;*/
@@ -69,21 +62,6 @@ hr.style12 {
     /*background: #F0F5F7 url(http://res.cloudinary.com/dvrbedgge/image/upload/v1485883124/wikipediaviewer/clear.gif) no-repeat right -15px center;*/
     background: #F0F5F7 url(/images/clear.gif) no-repeat right -15px center;
     text-align: left;
-    font-size: 1em;
-}
-
-.inptNum {
-    width: 15%;
-    height: 50px;
-    min-width: 15%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    box-shadow: -5px 5px 10px rgba(100, 100, 100, .8);
-    border: 2px solid lightslategray;
-    border-radius: 5px;
-    background: #F0F5F7;
-    text-align: center;
     font-size: 1em;
 }
 
@@ -106,7 +84,7 @@ hr.style12 {
     display: block;
     margin-bottom: 10px;
     padding: 15px 30px 5px 30px;
-    background-color: #E7E7E8;
+    /*background-color: #E7E7E8;*/
     border-radius: 5px;
     /*opacity: 0;*/
     -webkit-animation: new-item 1s ease-in-out forwards;
@@ -117,15 +95,35 @@ hr.style12 {
     transition-timing-function: cubic-bezier(0.6, 0, 0.4, 1);
 }
 
+.box-online {
+    background-color: #A1D490;
+}
+
+.box-offline {
+    background-color: #989C97;
+}
+
 .box:hover {
     border-left: 5px solid #5DA3BA;
     margin-left: -5px;
 }
 
+.img-circle {
+    width: 50px;
+    height: 50px;
+    float: left;
+}
+
 @media (max-width: 625px) {
     /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
-    .inptText {
+    p {
         width: 100%;
+        text-align: left;
+    }
+    h3 {
+        width: 100%;
+        text-align: left;
+        float: left;
     }
 }
 
