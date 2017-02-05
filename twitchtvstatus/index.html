@@ -3,7 +3,8 @@
 
 <head>
     <title>Twitch TV</title>
-    <link rel="icon" type="image/png" href="/images/fcc.png">
+    <!--<link rel="icon" type="image/png" href="/images/fcc.png">-->
+    <link rel="icon" type="image/png" href="http://res.cloudinary.com/dvrbedgge/image/upload/v1486217672/twitchtv/fcc.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link href='//fonts.googleapis.com/css?family=Open Sans|Prata|Arizonia|Aladin|Capriola' rel='stylesheet'>
@@ -20,7 +21,6 @@
             <div class="row">
                 <div class="col-xs-6 col-md-6 col-lg-6 col-xs-offset-3 col-md-offset-3 col-lg-offset-3 text-center">
                     <h1>Twitch Streamers</h1>
-
                 </div>
             </div>
             <div class="row">
@@ -83,7 +83,6 @@
                     getTwitchTvStatus("offline", "");
                 });
 
-
                 $("#searchInput").keyup(function(e) {
 
                     clearTimeout($.data(this, 'timer'));
@@ -96,9 +95,7 @@
 
                 });
 
-
             }); //end of document ready
-
 
             function search(srch) {
                 var searchText = $("#searchInput").val().trim();
@@ -110,12 +107,11 @@
 
                     getTwitchTvStatus("", searchText);
                 }
-
             }
 
             function getTwitchTvStatus(channelsToShow, searchChannels) {
 
-                var streamers = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp",
+                var streamers = ["brunofin", "ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp",
                     "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas",
                     "GeoffStorbeck", "terakilobyte", "medrybw", "thomasballinger", "beohoff", "Test_channel"
                 ];
@@ -129,6 +125,7 @@
 
                     $.getJSON(twURL + "streams/" + stream + clientID, function(data1) {
 
+                            // console.log(stream);
                             var tvChannel;
                             var status;
                             var channelTitle = "";
@@ -158,25 +155,54 @@
                                 channelTitle = status;
                             }
 
-                            $.getJSON(twURL + "users/" + userName + clientID, function(data2) {
-                                    var name = data2.display_name !== null ? data2.display_name : userName;
-                                    var logo = data2.logo !== null ? data2.logo : "/images/dummyImage.jpg";
 
+                            $.getJSON(twURL + "users/" + userName + clientID, function(data2) {
+
+                                    var name = data2.display_name !== null ? data2.display_name : userName;
+                                    var logo = data2.logo !== null ? data2.logo : "http://res.cloudinary.com/dvrbedgge/image/upload/v1486217672/twitchtv/dummyImage.jpg";
 
                                     formChannelsHtml(channelsToShow, searchChannels, logo, name, channelTitle, channelUrl, status);
                                 })
-                                .fail(function(error) {
-                                    alert("Error getting user's logo");
-                                });
+                                .fail(function(error, textStatus, errorThrown) {
 
+                                    if (channelsToShow !== "online") {
+
+                                        var val = JSON.parse(error.responseText);
+                                        var status = error.status;
+                                        if (val["error"].toLowerCase() === "unprocessable entity" && status === 422) {
+
+                                            var msg = val["message"];
+                                            msg = msg.replace("User", "").replace('"', "").replace('"', "");
+
+                                            msg += " or " + channelTitle.toLowerCase();
+                                            if (searchChannels.length === 0) {
+                                                $("#tvChannels").append("<div id='channels' class='box box-offline'>" +
+                                                    "<a style='text-decoration:none;' href='" + channelUrl +
+                                                    "' target='_blank'><img src='http://res.cloudinary.com/dvrbedgge/image/upload/v1486217672/twitchtv/dummyImage.jpg' class='img-circle img-responsive' alt='" +
+                                                    userName + "'><h4 class='text-center'>" + userName +
+                                                    "</h4><p class='text-center'>" + msg + " or " + channelTitle.toLowerCase() + "</p></a></div>");
+                                            }
+
+                                        } else {
+                                            console.log("Error getting user's logo.");
+                                        }
+                                    } else {
+                                        console.log("Error getting user's logo.");
+                                    }
+
+                                });
                         })
                         .fail(function(error) {
-                            alert("Error getting channels.");
+                            console.log("Error getting channels.");
                         });
                 });
             }
 
             function formChannelsHtml(channelsToShow, searchChannels, logo, name, channelTitle, channelUrl, status) {
+
+                if (name === "burnofin") {
+                    console.log("Stop");
+                }
 
                 if (channelTitle.length > 50) {
                     channelTitle = channelTitle.substring(0, 50) + "...";

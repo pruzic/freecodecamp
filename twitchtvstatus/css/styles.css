@@ -1,7 +1,7 @@
 .bodyCls {
     position: relative;
-    background: #FFF url("../images/stardust.png") center center;
-    /*background: #FFF url(http://res.cloudinary.com/dvrbedgge/image/upload/v1485883124/wikipediaviewer/exclusivepaper.png) center center;*/
+    /*background: #FFF url("../images/stardust.png") center center;*/
+    background: #FFF url('http://res.cloudinary.com/dvrbedgge/image/upload/v1486217672/twitchtv/stardust.png') center center;
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -51,17 +51,18 @@ img {
     width: 90%;
     /*min-width: 20%;*/
     height: 30px;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 6px 10px;
+    margin: 10px 0;
     box-sizing: border-box;
     box-shadow: -5px 5px 10px rgba(100, 100, 100, .8);
     border: 2px solid lightslategray;
     border-radius: 5px;
     /*background-color: #E6EFF2;*/
     /*background-color: rgba(230, 239, 242, .5);*/
-    /*background: #F0F5F7 url(http://res.cloudinary.com/dvrbedgge/image/upload/v1485883124/wikipediaviewer/clear.gif) no-repeat right -15px center;*/
-    background: #F0F5F7 url(/images/clear.gif) no-repeat right -15px center;
+    background: #F0F5F7 url('http://res.cloudinary.com/dvrbedgge/image/upload/v1486217672/twitchtv/clear.gif') no-repeat right -15px center;
+    /*background: #F0F5F7 url(/images/clear.gif) no-repeat right -15px center;*/
     text-align: left;
+    font-family: 'Open Sans', 'Arizonia', serif;
     font-size: 1em;
 }
 
