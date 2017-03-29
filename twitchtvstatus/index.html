@@ -175,12 +175,13 @@
                                             msg = msg.replace("User", "").replace('"', "").replace('"', "");
 
                                             msg += " or " + channelTitle.toLowerCase();
+
                                             if (searchChannels.length === 0) {
                                                 $("#tvChannels").append("<div id='channels' class='box box-offline'>" +
                                                     "<a style='text-decoration:none;' href='" + channelUrl +
                                                     "' target='_blank'><img src='http://res.cloudinary.com/dvrbedgge/image/upload/v1486217672/twitchtv/dummyImage.jpg' class='img-circle img-responsive' alt='" +
                                                     userName + "'><h4 class='text-center'>" + userName +
-                                                    "</h4><p class='text-center'>" + msg + " or " + channelTitle.toLowerCase() + "</p></a></div>");
+                                                    "</h4><p class='text-center'>" + msg + "</p></a></div>");
                                             }
 
                                         } else {

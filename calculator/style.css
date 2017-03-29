@@ -1,0 +1,124 @@
+
+body {
+	height: 100%;
+	background: radial-gradient(circle, #fff 20%, #ccc);
+	background-size: cover;
+}
+
+
+input, button {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+h4{
+	color: white;
+	letter-spacing: 2px;
+}
+
+#calculator{
+	font-family: 'Ubuntu Mono', monospace;
+	margin: 50px auto;
+	padding: 15px;
+	width: 300px;
+	height: 400px;
+	background: #3d4543;
+	border: 1px solid #222;
+	border-radius: 7px;
+	background-image: -webkit-linear-gradient(top, #3d4543, #2f2a2f);
+  	background-image: -moz-linear-gradient(top, #3d4543, #2f2a2f);
+  	background-image: -o-linear-gradient(top, #3d4543, #2f2a2f);
+  	background-image: linear-gradient(to bottom, #3d4543, #2f2a2f);
+    -webkit-box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 6px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+.top{
+	margin-bottom: 30px;
+}
+
+.calcRow{
+	margin-top: 7px;
+	zoom: 1;
+}
+
+.calDisplay{
+	display: block;
+	width: 100%;
+	height: 45px;
+	padding: 0 8px;	
+	font-size:  35px;
+	color: #444;
+	text-align: right;
+	background: #bccd95;
+	background-clip: padding-box;
+	border: 1px solid #bccd95;
+	border-top-right-radius: 3px;
+	border-top-left-radius: 3px;
+}
+
+.history {
+  display: block;
+  position: relative;
+  padding: 0 13px;
+  height: 25px;
+  bottom: 5px;
+  color: #8b8b7b;
+  font-size: 20px;
+  text-align: right;
+  background: #bccd95;
+  border: 1px solid#bccd95;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+
+.calcButton{
+	float: left;
+	padding: 0;
+	margin: 0 0 9px 9px;
+	width: 60px;
+	font-size: 23px;
+	color: #3a3a3a;
+	background: #dfd8d0;
+	background-clip: padding-box !important;
+	border: 1px solid rgba(0, 0, 0, 0.8);
+	border-radius: 3px;
+	/*cursor: pointer;*/
+	background-image: -webkit-linear-gradient(top, #dfd8d0, #CDCCCA);
+	  background-image: -moz-linear-gradient(top, #dfd8d0, #CDCCCA);
+	  background-image: -o-linear-gradient(top, #dfd8d0, #CDCCCA);
+	  background-image: linear-gradient(to bottom, #dfd8d0, #CDCCCA);
+	  -webkit-box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 1px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba( 255, 255, 255, 0.08);
+	  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 1px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 25 255, 0.08);
+}
+
+.calcButton:first-child{
+	margin-left: 0px;
+}
+
+.calcButonRed{
+  background: #ff4561;
+  background-image: -webkit-linear-gradient(top, #ff7286, #ff4561);
+  background-image: -moz-linear-gradient(top, #ff7286, #ff4561);
+  background-image: -o-linear-gradient(top, #ff7286, #ff4561);
+  background-image: linear-gradient(to bottom, #ff7286, #ff4561);
+}
+
+.calcButtonGray{
+
+	 background: #B4B4B0;
+}
+
+.calcButtonYellow {
+  background: #ffa70c;
+  background-image: -webkit-linear-gradient(top, #ffb935, #ffa70c);
+  background-image: -moz-linear-gradient(top, #ffb935, #ffa70c);
+  background-image: -o-linear-gradient(top, #ffb935, #ffa70c);
+  background-image: linear-gradient(to bottom, #ffb935, #ffa70c);
+}
+
+
+
+

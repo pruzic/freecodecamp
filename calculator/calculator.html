@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Calculator</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono:400,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+	<body>
+		<div id="calculator">
+			<div class="top">
+				<h4 class="text-center">CALCULATOR</h4>
+				<!-- <input type="text" name="res" id="res" value="0" class="calc-display-input" onfocus="this.blur()"> -->
+				<div id="answer" class="calDisplay" onfocus="this.blur()"><p>0</p></div>
+				<div class="history"><p>0</p></div>
+					<!-- <span class="clear"></span>					 -->
+			</div>
+			<div class="calcRow">
+				<button class="calcButton calcButtonGray" value="mrc">mrc</button>
+				<button class="calcButton calcButtonGray" value="m-">m-</button>
+				<button class="calcButton calcButtonGray" value="m+">m+</button>
+				<button class="calcButton calcButonRed" value="/">&divide;</button>
+			</div>
+			<div class="calcRow">
+				<button class="calcButton" value="7">7</button>
+				<button class="calcButton" value="8">8</button>
+				<button class="calcButton" value="9">9</button>
+				<button class="calcButton calcButonRed" value="*">x</button>
+			</div>
+			<div class="calcRow">
+				<button class="calcButton" value="4">4</button>
+				<button class="calcButton" value="5">5</button>
+				<button class="calcButton" value="6">6</button>
+				<button class="calcButton calcButonRed" value="-">-</button>
+			</div>
+			<div class="calcRow">
+				<button class="calcButton" value="1">1</button>
+				<button class="calcButton" value="2">2</button>
+				<button class="calcButton" value="3">3</button>
+				<button class="calcButton calcButonRed" value="+">+</button>
+			</div>
+			<div class="calcRow">
+				<button class="calcButton" value="0">0</button>
+				<button class="calcButton" value=".">.</button>
+				<button class="calcButton" value="C">C</button>
+				<button class="calcButton calcButtonYellow" value="=">=</button>
+			</div>				
+			
+		</div>
+
+		<script   src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+		<script src="./app.js"></script>
+	</body>
+</html>
